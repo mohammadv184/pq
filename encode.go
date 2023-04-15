@@ -167,7 +167,7 @@ func appendEscapedText(buf []byte, text string) []byte {
 	// check if we need to escape
 	for i := 0; i < len(text); i++ {
 		c = text[i]
-		if c == '\\' || c == '\n' || c == '\r' || c == '\t' {
+		if c == '\n' || c == '\r' || c == '\t' {
 			escapeNeeded = true
 			startPos = i
 			break
@@ -182,8 +182,6 @@ func appendEscapedText(buf []byte, text string) []byte {
 	for i := startPos; i < len(text); i++ {
 		c = text[i]
 		switch c {
-		case '\\':
-			result = append(result, '\\', '\\')
 		case '\n':
 			result = append(result, '\\', 'n')
 		case '\r':
@@ -596,9 +594,7 @@ func encodeBytea(serverVersion int, v []byte) (result []byte) {
 	} else {
 		// .. or resort to "escape"
 		for _, b := range v {
-			if b == '\\' {
-				result = append(result, '\\', '\\')
-			} else if b < 0x20 || b > 0x7e {
+			if b < 0x20 || b > 0x7e {
 				result = append(result, []byte(fmt.Sprintf("\\%03o", b))...)
 			} else {
 				result = append(result, b)
