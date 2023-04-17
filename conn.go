@@ -23,8 +23,8 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/lib/pq/oid"
-	"github.com/lib/pq/scram"
+	"github.com/mohammadv184/pq/oid"
+	"github.com/mohammadv184/pq/scram"
 )
 
 // Common error types
@@ -1229,7 +1229,7 @@ func (cn *conn) auth(r *readBuf, o values) {
 		}
 	case 7: // GSSAPI, startup
 		if newGss == nil {
-			errorf("kerberos error: no GSSAPI provider registered (import github.com/lib/pq/auth/kerberos if you need Kerberos support)")
+			errorf("kerberos error: no GSSAPI provider registered (import github.com/mohammadv184/pq/auth/kerberos if you need Kerberos support)")
 		}
 		cli, err := newGss()
 		if err != nil {
